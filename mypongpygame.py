@@ -46,6 +46,7 @@ ball_x = 640
 ball_y = 360
 ball_dx = 5
 ball_dy = 5
+acceleration = 1
 
 # score
 score_1 = 0
@@ -91,6 +92,7 @@ while game_loop:
         if ball_x < 100:
             if player_1_y < ball_y + 25:
                 if player_1_y + 150 > ball_y:
+                    acceleration += 0.2
                     ball_dx *= -1
                     bounce_sound_effect.play()
 
@@ -105,6 +107,7 @@ while game_loop:
         if ball_x < -50:
             ball_x = 640
             ball_y = 360
+            acceleration = 1
             ball_dy *= -1
             ball_dx *= -1
             score_2 += 1
@@ -112,13 +115,14 @@ while game_loop:
         elif ball_x > 1320:
             ball_x = 640
             ball_y = 360
+            acceleration = 1
             ball_dy *= -1
             ball_dx *= -1
             score_1 += 1
             scoring_sound_effect.play()
 
         # ball movement
-        ball_x = ball_x + ball_dx
+        ball_x = ball_x + (ball_dx * acceleration)
         ball_y = ball_y + ball_dy
 
         # player 1 up movement
