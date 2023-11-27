@@ -2,6 +2,8 @@
 # 2022
 
 import pygame
+import random
+import numpy
 
 pygame.init()
 
@@ -39,6 +41,8 @@ player_1_move_down = False
 # player 2 - robot
 player_2 = pygame.image.load("assets/player.png")
 player_2_y = 300
+prev_ball = 0
+speed = 5
 
 # ball
 ball = pygame.image.load("assets/ball.png")
@@ -89,20 +93,20 @@ while game_loop:
             bounce_sound_effect.play()
 
         # ball collision with the player 1 's paddle
-        if ball_x == 100:
-            if player_1_y < ball_y + 25:
-                if player_1_y + 150 > ball_y:
-                    acceleration += 0.2
-                    ball_dx *= -1
-                    bounce_sound_effect.play()
         if ball_x < 100:
-            if ball_y + 20 == player_1_y or ball_y == player_1_y + 150:
-                acceleration += 0.2
-                ball_dy *= -1
-                bounce_sound_effect.play()
+            if ball_x > 70 and ball_dx < 0:
+                if player_1_y < ball_y + 25:
+                    if player_1_y + 150 > ball_y:
+                        acceleration += 0.2
+                        ball_dx *= -1
+                        bounce_sound_effect.play()
+            # if ball_y + 20 == player_1_y or ball_y == player_1_y + 150:
+            #     acceleration += 0.2
+            #     ball_dy *= -1
+            #     bounce_sound_effect.play()
 
         # ball collision with the player 2 's paddle
-        if ball_x > 1160:
+        if ball_x > 1160 and ball_x < 1190 and ball_dx > 0:
             if player_2_y < ball_y + 25:
                 if player_2_y + 150 > ball_y:
                     ball_dx *= -1
@@ -132,13 +136,13 @@ while game_loop:
 
         # player 1 up movement
         if player_1_move_up:
-            player_1_y -= 5
+            player_1_y -= speed
         else:
             player_1_y += 0
 
         # player 1 down movement
         if player_1_move_down:
-            player_1_y += 5
+            player_1_y += speed
         else:
             player_1_y += 0
 
@@ -151,7 +155,21 @@ while game_loop:
             player_1_y = 570
 
         # player 2 "Artificial Intelligence"
-        player_2_y = ball_y
+        if ball_x <= 700:
+            if(abs(player_2_y - prev_ball) < 5) or player_2_y == 0 or player_2_y == 570:
+                if player_2_y == 0:
+                    prev_ball = player_2_y + random.randint(100,570)
+                    print("previu a ",prev_ball)
+                elif player_2_y == 570:
+                    prev_ball = player_2_y + random.randint(-570, -100)
+                    print("previu b ",prev_ball)
+                else:
+                    prev_ball = player_2_y + random.randint(100,570) * random.choice([-1,1])
+                    print("previu c ",prev_ball)
+        else:
+            prev_ball = ball_y
+
+        player_2_y += numpy.sign(prev_ball - player_2_y) * speed
         if player_2_y <= 0:
             player_2_y = 0
         elif player_2_y >= 570:
