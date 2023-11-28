@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7e4f852-4852-4eb6-a8ba-d99e7c989546" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="f7e4f852-4852-4eb6-a8ba-d99e7c989546" name="Changes" comment="Added angle to the racket collision">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mypongpygame.py" beforeDir="false" afterPath="$PROJECT_DIR$/mypongpygame.py" afterDir="false" />
     </list>
@@ -132,6 +131,14 @@
       <workItem from="1701057326002" duration="780000" />
       <workItem from="1701058120699" duration="2768000" />
     </task>
+    <task id="LOCAL-00001" summary="Added angle to the racket collision">
+      <created>1701129735351</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701129735351</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,5 +154,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added angle to the racket collision" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added angle to the racket collision" />
   </component>
 </project>

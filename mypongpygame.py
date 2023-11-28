@@ -115,17 +115,33 @@ while game_loop:
                     ball_dx = ball_speed * numpy.cos(numpy.pi / 6)
                     ball_dy = ball_speed * numpy.sin(numpy.pi / 6)
                     bounce_sound_effect.play()
-                elif player_1_y + 95 <= ball_y < player_1_y + 125:
+                elif player_1_y + 95 <= ball_y < player_1_y + 135:
                     ball_dx = ball_speed * numpy.cos(numpy.pi / 3)
                     ball_dy = ball_speed * numpy.sin(numpy.pi / 3)
                     bounce_sound_effect.play()
 
         # ball collision with the player 2 's paddle
         if 1160 < ball_x < 1190 and ball_dx > 0:
-            if player_2_y < ball_y + 25:
-                if player_2_y + 150 > ball_y:
-                    ball_dx *= -1
-                    bounce_sound_effect.play()
+            ball_speed = math.sqrt(ball_dx ** 2 + ball_dy ** 2)
+            if player_2_y - 25 < ball_y < player_2_y + 5:
+                ball_dx = ball_speed * numpy.cos(numpy.pi / 3) * -1
+                ball_dy = ball_speed * numpy.sin(numpy.pi / 3) * -1
+                bounce_sound_effect.play()
+            elif player_2_y + 5 <= ball_y < player_2_y + 35:
+                ball_dx = ball_speed * numpy.cos(numpy.pi / 6) * -1
+                ball_dy = ball_speed * numpy.sin(numpy.pi / 6) * -1
+                bounce_sound_effect.play()
+            elif player_2_y + 35 <= ball_y < player_2_y + 65:
+                ball_dx *= -1
+                bounce_sound_effect.play()
+            elif player_2_y + 65 <= ball_y < player_2_y + 95:
+                ball_dx = ball_speed * numpy.cos(numpy.pi / 6) * -1
+                ball_dy = ball_speed * numpy.sin(numpy.pi / 6)
+                bounce_sound_effect.play()
+            elif player_2_y + 95 <= ball_y < player_2_y + 135:
+                ball_dx = ball_speed * numpy.cos(numpy.pi / 3) * -1
+                ball_dy = ball_speed * numpy.sin(numpy.pi / 3)
+                bounce_sound_effect.play()
 
         # scoring points
         if ball_x < -50:
