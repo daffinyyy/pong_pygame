@@ -4,6 +4,7 @@
 import pygame
 import random
 import numpy
+import math
 
 pygame.init()
 
@@ -50,6 +51,7 @@ ball_x = 640
 ball_y = 360
 ball_dx = 5
 ball_dy = 5
+ball_speed = math.sqrt(ball_dx**2 + ball_dy**2)
 acceleration = 1
 
 # score
@@ -95,11 +97,28 @@ while game_loop:
         # ball collision with the player 1 's paddle
         if ball_x < 100:
             if ball_x > 70 and ball_dx < 0:
-                if player_1_y < ball_y + 25:
-                    if player_1_y + 150 > ball_y:
-                        acceleration += 0.2
-                        ball_dx *= -1
-                        bounce_sound_effect.play()
+                ball_speed = math.sqrt(ball_dx ** 2 + ball_dy ** 2)
+                acceleration += 0.1
+                ball_speed *= acceleration
+                if player_1_y - 25 < ball_y < player_1_y + 5:
+                    ball_dx = ball_speed * numpy.cos(numpy.pi/3)
+                    ball_dy = ball_speed * numpy.sin(numpy.pi/3) * -1
+                    bounce_sound_effect.play()
+                elif player_1_y + 5 <= ball_y < player_1_y + 35:
+                    ball_dx = ball_speed * numpy.cos(numpy.pi / 6)
+                    ball_dy = ball_speed * numpy.sin(numpy.pi / 6) * -1
+                    bounce_sound_effect.play()
+                elif player_1_y + 35 <= ball_y < player_1_y + 65:
+                    ball_dx *= -1
+                    bounce_sound_effect.play()
+                elif player_1_y + 65 <= ball_y < player_1_y + 95:
+                    ball_dx = ball_speed * numpy.cos(numpy.pi / 6)
+                    ball_dy = ball_speed * numpy.sin(numpy.pi / 6)
+                    bounce_sound_effect.play()
+                elif player_1_y + 95 <= ball_y < player_1_y + 125:
+                    ball_dx = ball_speed * numpy.cos(numpy.pi / 3)
+                    ball_dy = ball_speed * numpy.sin(numpy.pi / 3)
+                    bounce_sound_effect.play()
 
         # ball collision with the player 2 's paddle
         if 1160 < ball_x < 1190 and ball_dx > 0:
@@ -113,21 +132,21 @@ while game_loop:
             ball_x = 640
             ball_y = 360
             acceleration = 1
-            ball_dy *= -1
-            ball_dx *= -1
+            ball_dy = 5
+            ball_dx = 5
             score_2 += 1
             scoring_sound_effect.play()
         elif ball_x > 1320:
             ball_x = 640
             ball_y = 360
             acceleration = 1
-            ball_dy *= -1
-            ball_dx *= -1
+            ball_dy = -5
+            ball_dx = -5
             score_1 += 1
             scoring_sound_effect.play()
 
         # ball movement
-        ball_x = ball_x + (ball_dx * acceleration)
+        ball_x = ball_x + ball_dx
         ball_y = ball_y + ball_dy
 
         # player 1 up movement
